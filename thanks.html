@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Thank You — FoodLens AI Study</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --blue: #1d4ed8;
+    --text: #0f172a;
+    --muted: #64748b;
+    --bg: #f0fdf4;
+  }
+
+  html, body {
+    min-height: 100%;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow-y: auto;
+    position: relative;
+    padding: 24px 20px;
+  }
+
+  .blob {
+    position: fixed;
+    border-radius: 50%;
+    filter: blur(80px);
+    pointer-events: none;
+    animation: float 8s ease-in-out infinite;
+  }
+  .blob1 { width: 400px; height: 400px; background: rgba(22,163,74,0.12); top:-80px; left:-80px; animation-delay:0s; }
+  .blob2 { width: 300px; height: 300px; background: rgba(29,78,216,0.08); bottom:-80px; right:-80px; animation-delay:3s; }
+  .blob3 { width: 250px; height: 250px; background: rgba(22,163,74,0.08); top:50%; right:10%; animation-delay:1.5s; }
+
+  @keyframes float {
+    0%,100% { transform: translate(0,0) scale(1); }
+    33% { transform: translate(20px,-20px) scale(1.05); }
+    66% { transform: translate(-10px,15px) scale(0.98); }
+  }
+
+  .particles { position: fixed; inset: 0; pointer-events: none; overflow: hidden; }
+  .particle {
+    position: absolute; width: 4px; height: 4px; border-radius: 50%;
+    background: var(--green); opacity: 0;
+    animation: rise 6s ease-in infinite;
+  }
+  @keyframes rise {
+    0% { opacity:0; transform: translateY(0) scale(0); }
+    10% { opacity:0.6; transform: translateY(-20px) scale(1); }
+    100% { opacity:0; transform: translateY(-400px) scale(0.3); }
+  }
+
+  .card {
+    position: relative;
+    z-index: 10;
+    background: #fff;
+    border-radius: 24px;
+    padding: 40px 40px 36px;
+    max-width: 540px;
+    width: 100%;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.08), 0 0 0 1px rgba(22,163,74,0.1);
+    text-align: center;
+    animation: cardIn 0.8s cubic-bezier(0.34,1.56,0.64,1) forwards;
+    opacity: 0;
+    transform: translateY(40px) scale(0.95);
+  }
+
+  @keyframes cardIn { to { opacity:1; transform: translateY(0) scale(1); } }
+
+  .icon-wrap {
+    width: 72px; height: 72px;
+    background: var(--green-light);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 20px;
+    position: relative;
+    animation: iconPop 0.6s cubic-bezier(0.34,1.56,0.64,1) 0.3s both;
+    transform: scale(0);
+  }
+  @keyframes iconPop { to { transform: scale(1); } }
+
+  .icon-wrap::before {
+    content:''; position:absolute; inset:-5px; border-radius:50%;
+    border: 2px solid rgba(22,163,74,0.2);
+    animation: ripple 2s ease-out 0.8s infinite;
+  }
+  .icon-wrap::after {
+    content:''; position:absolute; inset:-12px; border-radius:50%;
+    border: 1px solid rgba(22,163,74,0.1);
+    animation: ripple 2s ease-out 1s infinite;
+  }
+  @keyframes ripple {
+    0% { opacity:1; transform:scale(1); }
+    100% { opacity:0; transform:scale(1.4); }
+  }
+
+  .icon-svg { width:36px; height:36px; stroke:var(--green); stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+  .checkmark { stroke-dasharray:60; stroke-dashoffset:60; animation: draw 0.6s ease-out 0.7s forwards; }
+  @keyframes draw { to { stroke-dashoffset:0; } }
+
+  .label {
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--green); font-weight: 500; margin-bottom: 10px;
+    opacity:0; animation: fadeUp 0.5s ease 0.5s forwards;
+  }
+
+  h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(24px, 4vw, 34px);
+    font-weight: 800; color: var(--text);
+    letter-spacing: -1.5px; line-height: 1.1;
+    margin-bottom: 12px;
+    opacity:0; animation: fadeUp 0.5s ease 0.6s forwards;
+  }
+  h1 em { color: var(--green); font-style: normal; }
+
+  .subtitle {
+    font-size: 15px; color: var(--muted); line-height: 1.65;
+    font-weight: 300; max-width: 400px; margin: 0 auto 24px;
+    opacity:0; animation: fadeUp 0.5s ease 0.7s forwards;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform: translateY(12px); }
+    to { opacity:1; transform: translateY(0); }
+  }
+
+  .funfact-wrap {
+    background: #f0fdf4; border: 1px solid #bbf7d0;
+    border-radius: 14px; padding: 16px 20px;
+    margin-bottom: 20px; text-align: left;
+    opacity:0; animation: fadeUp 0.5s ease 0.8s forwards;
+  }
+  .funfact-label { font-size:11px; font-weight:600; color:var(--green); letter-spacing:1px; text-transform:uppercase; margin-bottom:6px; }
+  .funfact-text { font-size:13px; color:var(--text); line-height:1.6; margin-bottom:6px; }
+  .funfact-source { font-size:11px; color:var(--muted); font-style:italic; }
+
+  .divider {
+    height:1px; background:#f1f5f9;
+    margin: 0 -40px 20px;
+    opacity:0; animation: fadeUp 0.5s ease 0.9s forwards;
+  }
+
+  .debrief {
+    background: #f8fafc; border: 1px solid #e2e8f0;
+    border-radius: 12px; padding: 16px 18px;
+    margin-bottom: 20px; text-align: left;
+    opacity:0; animation: fadeUp 0.5s ease 1s forwards;
+  }
+  .debrief-title {
+    font-family: 'Syne', sans-serif; font-size:12px; font-weight:700;
+    color:var(--green); margin-bottom:7px;
+    display:flex; align-items:center; gap:6px;
+  }
+  .debrief-dot { width:6px; height:6px; background:var(--green); border-radius:50%; flex-shrink:0; }
+  .debrief p { font-size:12.5px; color:#374151; line-height:1.65; font-weight:300; }
+  .debrief strong { color:var(--text); font-weight:500; }
+
+  .contact {
+    font-size:12px; color:var(--muted);
+    opacity:0; animation: fadeUp 0.5s ease 1.1s forwards;
+  }
+  .contact a { color:var(--blue); text-decoration:none; font-weight:500; }
+  .contact a:hover { text-decoration:underline; }
+
+  .brand {
+    text-align: center;
+    margin-top: 20px;
+    font-family: 'Syne', sans-serif;
+    font-size: 11px; font-weight:700;
+    color: rgba(100,116,139,0.5); letter-spacing:1px;
+    z-index:10;
+  }
+  .brand span { color: rgba(22,163,74,0.6); }
+</style>
+</head>
+<body>
+
+<div class="blob blob1"></div>
+<div class="blob blob2"></div>
+<div class="blob blob3"></div>
+<div class="particles" id="particles"></div>
+
+<div style="width:100%; max-width:540px; z-index:10;">
+  <div class="card">
+
+    <div class="icon-wrap">
+      <svg class="icon-svg" viewBox="0 0 40 40">
+        <path class="checkmark" d="M8 20 L16 28 L32 12"/>
+      </svg>
+    </div>
+
+    <div class="label">Study complete</div>
+    <h1>Thank you for<br>your <em>contribution.</em></h1>
+    <p class="subtitle">Your responses have been recorded and will directly contribute to research on AI and sustainable consumer behaviour.</p>
+
+    <div class="funfact-wrap">
+      <div class="funfact-label">🌍 Did you know?</div>
+      <p class="funfact-text" id="funfact"></p>
+      <div class="funfact-source" id="funfact-source"></div>
+    </div>
+
+    <div class="divider"></div>
+
+    <div class="debrief">
+      <div class="debrief-title">
+        <div class="debrief-dot"></div>
+        Study debriefing
+      </div>
+      <p>
+        This study examined how <strong>message style</strong> (rational, emotional, or neutral) influences consumer perceptions of an AI-powered product. You were randomly assigned to one of three versions of the FoodLens AI product page. <strong>FoodLens AI is a fictional product</strong> created for research purposes. Your responses help us understand how AI communication affects trust and sustainable purchase decisions.
+      </p>
+    </div>
+
+    <p class="contact">
+      Questions about this study? Contact
+      <a href="mailto:zoeprifti@hotmail.com">zoeprifti@hotmail.com</a>
+    </p>
+
+  </div>
+
+  <div class="brand">FoodLens <span>AI</span> · Research Study</div>
+</div>
+
+<script>
+  document.getElementById('funfact').textContent = "73% of global consumers say they would definitely or probably change their consumption habits to reduce their environmental impact.";
+  document.getElementById('funfact-source').textContent = "— NielsenIQ, The Changing Climate of Sustainability";
+
+  const particles = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.bottom = '-10px';
+    p.style.animationDelay = (Math.random() * 6) + 's';
+    p.style.animationDuration = (4 + Math.random() * 4) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+    particles.appendChild(p);
+  }
+</script>
+
+</body>
+</html>
